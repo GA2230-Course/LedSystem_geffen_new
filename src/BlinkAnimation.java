@@ -20,7 +20,7 @@ public class BlinkAnimation implements ledsystem.Animation {
     }
 
     @Override
-    public void apply(ledsystem.LedStrip strip) {
+    public void apply(ledsystem.MyLedStrip strip) {
         if (isFirstRun) {
             sw.start();
             isFirstRun = false;
