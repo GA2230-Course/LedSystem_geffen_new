@@ -1,6 +1,9 @@
 package ledsystem;
 
+import ledsystem.MyLedStrip;
+
 import java.awt.Color;
+
 
 class SolidAnimation implements ledsystem.Animation {
     private final Color color;
@@ -11,7 +14,7 @@ class SolidAnimation implements ledsystem.Animation {
 
 
     @Override
-    public void apply(LedStrip strip) {
+    public void apply(MyLedStrip strip) {
         for (int i = 0; i < strip.getLength(); i++) {
             strip.setColor(i, this.color);
         }

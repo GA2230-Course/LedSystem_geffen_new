@@ -6,8 +6,8 @@ public class mainproject {
     public static void main(String[] args) {
 
 
-        LedStrip myStrip = new LedStrip(10);
-        ledsystem.SolidAnimation redAnimation = new ledsystem.SolidAnimation(Color.RED);
+        MyLedStrip myStrip = new MyLedStrip(10);
+        SolidAnimation redAnimation = new ledsystem.SolidAnimation(Color.RED);
         redAnimation.apply(myStrip);
     }
 }
