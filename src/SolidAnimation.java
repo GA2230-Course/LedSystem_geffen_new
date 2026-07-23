@@ -11,7 +11,7 @@ class SolidAnimation implements ledsystem.Animation {
 
 
     @Override
-    public void apply(LedStrip strip) {
+    public void apply(ledsystem.LedStrip strip) {
         for (int i = 0; i < strip.getLength(); i++) {
             strip.setColor(i, this.color);
         }

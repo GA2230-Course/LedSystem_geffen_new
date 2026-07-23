@@ -23,4 +23,3 @@ class LedStrip {
         window.getContentPane().setBackground(color);
     }
 }
-
