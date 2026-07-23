@@ -3,7 +3,7 @@ package ledsystem;
 import ledsystem.utils.StopWatch;
 import java.awt.*;
 
-public class BlinkAnimation implements ledsystem.Animation {
+public class BlinkAnimation implements Animation {
     private final StopWatch sw = new StopWatch();
     private final Color colorA;
     private final Color colorB;
@@ -20,7 +20,7 @@ public class BlinkAnimation implements ledsystem.Animation {
     }
 
     @Override
-    public void apply(ledsystem.LedStrip strip) {
+    public void apply(MyLedStrip strip) {
         if (isFirstRun) {
             sw.start();
             isFirstRun = false;

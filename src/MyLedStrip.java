@@ -3,11 +3,11 @@ package ledsystem;
 import java.awt.Color;
 import javax.swing.JFrame;
 
-class LedStrip {
+class MyLedStrip {
     private final int length;
     private final JFrame window;
 
-    public LedStrip(int length) {
+    public MyLedStrip(int length) {
         this.length = length;
         window = new JFrame("LED Strip Simulation");
         window.setSize(300, 300);
@@ -29,3 +29,4 @@ class LedStrip {
         }
     }
 }
+

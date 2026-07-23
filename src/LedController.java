@@ -1,21 +1,26 @@
 package ledsystem;
+import ledsystem.utils.StopWatch;
 
 public class LedController {
-    private final ledsystem.LedStrip strip;
-    private ledsystem.Animation animation;
+    private final MyLedStrip strip;
+    private Animation animation;
+    private final StopWatch globalWatch = new StopWatch();
 
     public LedController (int stripLength)  {
-        this.strip = new ledsystem.LedStrip(stripLength);
+        this.strip = new MyLedStrip(stripLength);
     }
-
-    public void addAnimation(ledsystem.Animation animation){
+    public void addAnimation(Animation animation){
         this.animation = animation;
     }
 
     public void play(){
-        while (this.animation != null){
+        this.globalWatch.start();
+
+        while (this.animation != null&& globalWatch.get()<8.0 ){
             this.animation.apply(strip);
+            System.out.println("the past time is:"+globalWatch.get());
         }
     }
 }
+
 
