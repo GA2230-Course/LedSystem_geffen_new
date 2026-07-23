@@ -9,8 +9,11 @@ class SolidAnimation implements ledsystem.Animation {
         this.color = color;
     }
 
+
     @Override
     public void apply(MyLedStrip strip) {
-        strip.setAllColors(this.color);
+        for (int i = 0; i < strip.getLength(); i++) {
+            strip.setColor(i, this.color);
+        }
     }
 }

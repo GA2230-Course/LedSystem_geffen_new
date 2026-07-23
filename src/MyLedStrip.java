@@ -22,11 +22,5 @@ class MyLedStrip {
     public void setColor(int index, Color color) {
         window.getContentPane().setBackground(color);
     }
-
-    public void setAllColors(Color color) {
-        for (int i = 0; i < this.length; i++) {
-            this.setColor(i, color);
-        }
-    }
 }
 
