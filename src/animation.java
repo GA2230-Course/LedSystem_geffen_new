@@ -1,7 +1,7 @@
 package ledsystem;
 
-import ledsystem.LedStrip;
+import ledsystem.MyLedStrip;
 
 interface Animation {
-    void apply(LedStrip strip);
+    void apply(MyLedStrip strip);
 }
