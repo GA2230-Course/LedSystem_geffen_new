@@ -8,7 +8,7 @@ public class mainproject {
         BlinkAnimation blink = new BlinkAnimation();
         WaveAnimation wave = new WaveAnimation();
 
-        SequentialAnimationGroup group = new SequentialAnimationGroup(blink, wave);
+        RandomAnimationGroup  group = new RandomAnimationGroup (blink, wave);
 
         controller.addAnimation(group);
         controller.play();

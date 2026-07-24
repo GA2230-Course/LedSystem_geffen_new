@@ -6,6 +6,7 @@ import java.util.Random;
 public class WaveAnimation implements Animation {
     private Color c1 = null, c2 = null, cMixed = null;
     private int step = 0;
+    private int framesCount = 0;
 
     @Override
     public void apply(MyLedStrip strip) {
@@ -19,12 +20,6 @@ public class WaveAnimation implements Animation {
             int blue = (int) Math.sqrt((Math.pow(c1.getBlue(), 2) + Math.pow(c2.getBlue(), 2)) / 2);
 
             cMixed = new Color(red, green, blue);
-
-            System.out.println("=== START COLOR MIXING ===");
-            System.out.println("Color 1 RGB: [" + c1.getRed() + ", " + c1.getGreen() + ", " + c1.getBlue() + "]");
-            System.out.println("Color 2 RGB: [" + c2.getRed() + ", " + c2.getGreen() + ", " + c2.getBlue() + "]");
-            System.out.println("Calculated Mixed RGB: [" + red + ", " + green + ", " + blue + "]");
-            System.out.println("==========================");
         }
 
         if (step == 0) {
@@ -35,17 +30,28 @@ public class WaveAnimation implements Animation {
             strip.setColor(0, c2);
         }
 
-        try {
-            Thread.sleep(1500);
-        } catch (Exception e) {}
+        framesCount++;
 
-        if (step < 3) {
-            step++;
+        // כל 15 פריימים (בערך שנייה וחצי) נעבור לצבע הבא בתור
+        if (framesCount >= 15) {
+            if (step < 3) {
+                step++;
+            }
+            framesCount = 0;
         }
     }
 
     @Override
     public boolean isFinished() {
         return step >= 3;
+    }
+
+    @Override
+    public void reset() {
+        this.step = 0;
+        this.framesCount = 0;
+        this.c1 = null;
+        this.c2 = null;
+        this.cMixed = null;
     }
 }

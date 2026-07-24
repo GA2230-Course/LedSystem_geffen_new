@@ -16,12 +16,13 @@ public class LedController {
     public void play(){
         this.globalWatch.start();
 
-        while (this.animation != null && globalWatch.get() < 20.0) {
+        while (this.animation != null) {
             this.animation.apply(strip);
             System.out.println("the past time is:" + globalWatch.get());
+
+            try {
+                Thread.sleep(100);
+            } catch (Exception e) {}
         }
     }
 }
-
-
-

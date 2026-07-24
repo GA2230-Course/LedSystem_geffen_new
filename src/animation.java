@@ -8,4 +8,5 @@ interface Animation {
     default boolean isFinished() {
         return false;
     }
+    default void reset() {}
 }

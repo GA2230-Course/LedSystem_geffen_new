@@ -1,47 +1,43 @@
 package ledsystem;
 
-import ledsystem.utils.StopWatch;
-
 import java.awt.*;
 
 public class BlinkAnimation implements Animation {
-    private final StopWatch sw = new StopWatch();
     private boolean isColorA = true;
-    private double targetTime = 2.0;
-    private boolean isFirstRun = true;
-
+    private int framesCount = 0;
+    private boolean finished = false;
 
     public BlinkAnimation() {
-
     }
 
     @Override
     public void apply(MyLedStrip strip) {
-        if (isFirstRun) {
-            sw.start();
-            isFirstRun = false;
-        }
+        if (finished) return;
 
-        if (sw.get() >= targetTime) {
-            Color nextColor;
-            if (isColorA) {
-                nextColor = Color.RED;
-            } else {
-                nextColor = Color.GREEN;
-            }
-
-
+        if (framesCount % 20 == 0) {
+            Color nextColor = isColorA ? Color.RED : Color.GREEN;
             for (int i = 0; i < strip.getLength(); i++) {
                 strip.setColor(i, nextColor);
             }
-
             isColorA = !isColorA;
-            targetTime += 2.0;
+        }
+
+        framesCount++;
+
+        if (framesCount >= 50) {
+            finished = true;
         }
     }
+
     @Override
     public boolean isFinished() {
-        return sw.get() >= 7.0;
+        return finished;
     }
 
+    @Override
+    public void reset() {
+        this.framesCount = 0;
+        this.isColorA = true;
+        this.finished = false;
+    }
 }
