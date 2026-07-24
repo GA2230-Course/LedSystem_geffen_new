@@ -1,6 +1,7 @@
 package ledsystem;
 
 import java.util.Random;
+import ledsystem.ledssim.LedStrip;
 
 public class RandomAnimationGroup implements Animation {
     private Animation[] animations;
@@ -13,7 +14,7 @@ public class RandomAnimationGroup implements Animation {
     }
 
     @Override
-    public void apply(MyLedStrip strip) {
+    public void apply(LedStrip strip) {
         Animation current = animations[currentIndex];
         current.apply(strip);
 
@@ -26,5 +27,13 @@ public class RandomAnimationGroup implements Animation {
     @Override
     public boolean isFinished() {
         return false;
+    }
+
+    @Override
+    public void reset() {
+        for (Animation anim : animations) {
+            anim.reset();
+        }
+        this.currentIndex = random.nextInt(animations.length);
     }
 }

@@ -17,10 +17,9 @@ public class MainProject {
         BlinkAnimation blink = new BlinkAnimation();
         WaveAnimation wave = new WaveAnimation();
 
-        SequentialAnimationGroup sequentialGroup = new SequentialAnimationGroup(blink, wave);
-        TimedAnimation timedSequence = new TimedAnimation(sequentialGroup, 20.0);
+        RandomAnimationGroup randomGroup = new RandomAnimationGroup(blink, wave);
 
-        controller.addAnimation(timedSequence);
+        controller.addAnimation(randomGroup);
         controller.play();
     }
 }
