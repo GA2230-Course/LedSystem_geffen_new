@@ -8,7 +8,6 @@ public class MainProject {
     public static void main(String[] args) {
         LedStrip realStrip = LedSim.createRows(10);
 
-
         LedController controller = new LedController(realStrip);
 
         WaveAnimation waveAnimation = new WaveAnimation();
@@ -16,18 +15,6 @@ public class MainProject {
 
         controller.addAnimation(timedWave);
 
-        new Thread(() -> {
-            controller.play();
-        }).start();
-
-        while (true) {
-            realStrip.apply();
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                return;
-            }
-        }
+        controller.play();
     }
 }

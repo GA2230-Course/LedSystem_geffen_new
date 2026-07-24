@@ -3,9 +3,12 @@ package ledsystem;
 import java.awt.Color;
 import java.util.Random;
 import ledsystem.ledssim.LedStrip;
+import ledsystem.utils.StopWatch;
 
 public class WaveAnimation implements Animation {
     private Color c1 = null, c2 = null, cMixed = null;
+    private final StopWatch sw = new StopWatch();
+    private boolean isFirstRun = true;
 
     private void initializeColors() {
         Random r = new Random();
@@ -20,14 +23,18 @@ public class WaveAnimation implements Animation {
     }
 
     @Override
-    public void apply(LedStrip strip, double elapsedSeconds) {
-        if (c1 == null) {
+    public void apply(LedStrip strip) {
+        if (isFirstRun) {
+            sw.start();
             initializeColors();
+            isFirstRun = false;
         }
 
-        if (elapsedSeconds < 1.5) {
+        double elapsed = sw.get();
+
+        if (elapsed < 1.5) {
             strip.setAll(c1);
-        } else if (elapsedSeconds < 3.0) {
+        } else if (elapsed < 3.0) {
             strip.setAll(cMixed);
         } else {
             strip.setAll(c2);

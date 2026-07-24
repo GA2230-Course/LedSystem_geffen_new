@@ -11,7 +11,7 @@ public class SolidAnimation implements Animation {
     }
 
     @Override
-    public void apply(LedStrip strip, double elapsedSeconds) {
+    public void apply(LedStrip strip) {
         strip.setAll(this.color);
     }
 }

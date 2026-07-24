@@ -1,11 +1,14 @@
 package ledsystem;
 
 import ledsystem.ledssim.LedStrip;
+import ledsystem.utils.StopWatch;
 import java.util.Objects;
 
-public class TimedAnimation {
+public class TimedAnimation implements Animation {
     private final Animation animation;
     private final double durationSeconds;
+    private final StopWatch watch = new StopWatch();
+    private boolean isFirstRun = true;
 
     public TimedAnimation(Animation animation, double durationSeconds) {
         this.animation = Objects.requireNonNull(animation, "Animation cannot be null");
@@ -15,11 +18,22 @@ public class TimedAnimation {
         this.durationSeconds = durationSeconds;
     }
 
-    public Animation getAnimation() {
-        return this.animation;
+    @Override
+    public void apply(LedStrip strip) {
+        if (isFirstRun) {
+            watch.start();
+            isFirstRun = false;
+        }
+
+        if (!isFinished()) {
+            animation.apply(strip);
+        }
     }
 
-    public double getDurationSeconds() {
-        return this.durationSeconds;
+    public boolean isFinished() {
+        if (isFirstRun) {
+            return false;
+        }
+        return watch.get() >= durationSeconds;
     }
 }

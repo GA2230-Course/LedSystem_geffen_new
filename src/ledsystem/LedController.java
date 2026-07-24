@@ -1,35 +1,41 @@
 package ledsystem;
 
 import ledsystem.ledssim.LedStrip;
-import ledsystem.utils.StopWatch;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class LedController {
     private final LedStrip strip;
-    private final List<TimedAnimation> timedAnimations = new ArrayList<>();
+    private final List<Animation> animations = new ArrayList<>();
 
     public LedController(LedStrip strip) {
         this.strip = Objects.requireNonNull(strip, "LedStrip cannot be null");
     }
 
-    public void addAnimation(TimedAnimation timedAnimation) {
-        this.timedAnimations.add(Objects.requireNonNull(timedAnimation, "TimedAnimation cannot be null"));
+    public void addAnimation(Animation animation) {
+        this.animations.add(Objects.requireNonNull(animation, "Animation cannot be null"));
     }
 
     public void play() {
-        StopWatch watch = new StopWatch();
+        for (Animation anim : animations) {
 
-        for (TimedAnimation timedAnim : timedAnimations) {
-            watch.start();
-            double duration = timedAnim.getDurationSeconds();
+            if (anim instanceof TimedAnimation) {
+                TimedAnimation timed = (TimedAnimation) anim;
+                while (!timed.isFinished()) {
+                    timed.apply(strip);
+                    strip.apply(); // הציור קורה פה בצורה פשוטה ומסונכרנת
 
-            Animation anim = timedAnim.getAnimation();
-
-            double elapsed;
-            while ((elapsed = watch.get()) < duration) {
-                anim.apply(strip, elapsed);
+                    try {
+                        Thread.sleep(10); // השהיה קלה ומאוזנת שמונעת Busy-Wait ומאפשרת דיוק בשעון
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        return;
+                    }
+                }
+            } else {
+                anim.apply(strip);
+                strip.apply();
             }
         }
     }
