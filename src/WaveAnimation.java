@@ -39,8 +39,13 @@ public class WaveAnimation implements Animation {
             Thread.sleep(1500);
         } catch (Exception e) {}
 
-        if (step < 2) {
+        if (step < 3) {
             step++;
         }
+    }
+
+    @Override
+    public boolean isFinished() {
+        return step >= 3;
     }
 }

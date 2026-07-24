@@ -39,4 +39,9 @@ public class BlinkAnimation implements Animation {
             targetTime += 2.0;
         }
     }
+    @Override
+    public boolean isFinished() {
+        return sw.get() >= 7.0;
+    }
+
 }
