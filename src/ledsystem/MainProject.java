@@ -6,11 +6,8 @@ import ledsystem.ledssim.LedStrip;
 public class MainProject {
 
     public static void main(String[] args) {
-        java.awt.Point[] points = new java.awt.Point[10];
-        for (int i = 0; i < points.length; i++) {
-            points[i] = new java.awt.Point(i * 20, 50);
-        }
-        LedStrip realStrip = new LedSim(points);
+        LedStrip realStrip = LedSim.createRows(10);
+
 
         LedController controller = new LedController(realStrip);
 
@@ -18,6 +15,19 @@ public class MainProject {
         TimedAnimation timedWave = new TimedAnimation(waveAnimation, 8.0);
 
         controller.addAnimation(timedWave);
-        controller.play();
+
+        new Thread(() -> {
+            controller.play();
+        }).start();
+
+        while (true) {
+            realStrip.apply();
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+        }
     }
 }

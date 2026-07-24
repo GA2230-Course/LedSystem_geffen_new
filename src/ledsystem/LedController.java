@@ -24,19 +24,13 @@ public class LedController {
         for (TimedAnimation timedAnim : timedAnimations) {
             watch.start();
             double duration = timedAnim.getDurationSeconds();
+
             Animation anim = timedAnim.getAnimation();
 
             double elapsed;
             while ((elapsed = watch.get()) < duration) {
+                // הפעלת האנימציה ישירות
                 anim.apply(strip, elapsed);
-                strip.apply();
-
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    return;
-                }
             }
         }
     }
