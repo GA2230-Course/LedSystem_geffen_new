@@ -29,7 +29,6 @@ public class LedController {
 
             double elapsed;
             while ((elapsed = watch.get()) < duration) {
-                // הפעלת האנימציה ישירות
                 anim.apply(strip, elapsed);
             }
         }
