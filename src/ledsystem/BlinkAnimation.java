@@ -1,7 +1,7 @@
 package ledsystem;
 
 import ledsystem.utils.StopWatch;
-
+import ledsystem.ledssim.LedStrip;
 import java.awt.*;
 
 public class BlinkAnimation implements Animation {
@@ -10,30 +10,20 @@ public class BlinkAnimation implements Animation {
     private double targetTime = 2.0;
     private boolean isFirstRun = true;
 
-
     public BlinkAnimation() {
-
     }
 
     @Override
-    public void apply(MyLedStrip strip) {
+    public void apply(LedStrip strip) {
         if (isFirstRun) {
             sw.start();
             isFirstRun = false;
         }
 
         if (sw.get() >= targetTime) {
-            Color nextColor;
-            if (isColorA) {
-                nextColor = Color.RED;
-            } else {
-                nextColor = Color.GREEN;
-            }
+            Color nextColor = isColorA ? Color.RED : Color.GREEN;
 
-
-            for (int i = 0; i < strip.getLength(); i++) {
-                strip.setColor(i, nextColor);
-            }
+            strip.setAll(nextColor);
 
             isColorA = !isColorA;
             targetTime += 2.0;
