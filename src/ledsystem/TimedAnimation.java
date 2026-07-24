@@ -7,8 +7,6 @@ import java.util.Objects;
 public class TimedAnimation implements Animation {
     private final Animation animation;
     private final double durationSeconds;
-    private final StopWatch watch = new StopWatch();
-    private boolean isFirstRun = true;
 
     public TimedAnimation(Animation animation, double durationSeconds) {
         this.animation = Objects.requireNonNull(animation, "Animation cannot be null");
@@ -20,20 +18,19 @@ public class TimedAnimation implements Animation {
 
     @Override
     public void apply(LedStrip strip) {
-        if (isFirstRun) {
-            watch.start();
-            isFirstRun = false;
-        }
+        StopWatch watch = new StopWatch();
+        watch.start();
 
-        if (!isFinished()) {
+        while (watch.get() < durationSeconds) {
             animation.apply(strip);
-        }
-    }
+            strip.apply();
 
-    public boolean isFinished() {
-        if (isFirstRun) {
-            return false;
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                break;
+            }
         }
-        return watch.get() >= durationSeconds;
     }
 }

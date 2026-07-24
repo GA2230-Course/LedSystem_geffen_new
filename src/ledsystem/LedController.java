@@ -18,25 +18,8 @@ public class LedController {
     }
 
     public void play() {
-        for (Animation anim : animations) {
-
-            if (anim instanceof TimedAnimation) {
-                TimedAnimation timed = (TimedAnimation) anim;
-                while (!timed.isFinished()) {
-                    timed.apply(strip);
-                    strip.apply(); // הציור קורה פה בצורה פשוטה ומסונכרנת
-
-                    try {
-                        Thread.sleep(10); // השהיה קלה ומאוזנת שמונעת Busy-Wait ומאפשרת דיוק בשעון
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        return;
-                    }
-                }
-            } else {
-                anim.apply(strip);
-                strip.apply();
-            }
+        for (Animation animation : animations) {
+            animation.apply(strip);
         }
     }
 }

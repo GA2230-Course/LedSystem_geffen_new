@@ -14,7 +14,6 @@ public class MainProject {
         TimedAnimation timedWave = new TimedAnimation(waveAnimation, 8.0);
 
         controller.addAnimation(timedWave);
-
         controller.play();
     }
 }
