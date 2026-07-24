@@ -1,6 +1,7 @@
 package ledsystem;
 
 import java.awt.*;
+import ledsystem.ledssim.LedStrip;
 
 public class BlinkAnimation implements Animation {
     private boolean isColorA = true;
@@ -11,20 +12,18 @@ public class BlinkAnimation implements Animation {
     }
 
     @Override
-    public void apply(MyLedStrip strip) {
+    public void apply(LedStrip strip) {
         if (finished) return;
 
         if (framesCount % 20 == 0) {
             Color nextColor = isColorA ? Color.RED : Color.GREEN;
-            for (int i = 0; i < strip.getLength(); i++) {
-                strip.setColor(i, nextColor);
-            }
+            strip.setAll(nextColor);
             isColorA = !isColorA;
         }
 
         framesCount++;
 
-        if (framesCount >= 50) {
+        if (framesCount >= 70) {
             finished = true;
         }
     }

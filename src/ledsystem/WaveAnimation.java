@@ -2,6 +2,7 @@ package ledsystem;
 
 import java.awt.Color;
 import java.util.Random;
+import ledsystem.ledssim.LedStrip;
 
 public class WaveAnimation implements Animation {
     private Color c1 = null, c2 = null, cMixed = null;
@@ -9,7 +10,7 @@ public class WaveAnimation implements Animation {
     private int framesCount = 0;
 
     @Override
-    public void apply(MyLedStrip strip) {
+    public void apply(LedStrip strip) {
         if (c1 == null) {
             Random r = new Random();
             c1 = new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256));
@@ -23,11 +24,11 @@ public class WaveAnimation implements Animation {
         }
 
         if (step == 0) {
-            strip.setColor(0, c1);
+            strip.setAll(c1);
         } else if (step == 1) {
-            strip.setColor(0, cMixed);
+            strip.setAll(cMixed);
         } else {
-            strip.setColor(0, c2);
+            strip.setAll(c2);
         }
 
         framesCount++;

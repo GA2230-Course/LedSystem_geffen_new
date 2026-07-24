@@ -45,9 +45,7 @@ public abstract class LedStrip {
         return led_colors[index];
     }
 
-    /**
-     * Applies the LED colors to the strip.
-     */
+
     public abstract void apply();
 
     public int getLedCount() {

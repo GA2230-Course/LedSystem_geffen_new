@@ -1,12 +1,13 @@
 package ledsystem;
 
-import ledsystem.MyLedStrip;
+import ledsystem.ledssim.LedStrip;
 
-interface Animation {
-    void apply(MyLedStrip strip);
+public interface Animation {
+    void apply(LedStrip strip);
 
     default boolean isFinished() {
         return false;
     }
+
     default void reset() {}
 }
