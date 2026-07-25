@@ -3,6 +3,7 @@ package ledsystem;
 import ledsystem.ledssim.LedStrip;
 import ledsystem.utils.StopWatch;
 import java.awt.Color;
+import java.util.Objects;
 
 public class BlinkAnimation implements Animation {
     private final Color colorA;
@@ -19,8 +20,13 @@ public class BlinkAnimation implements Animation {
         if (intervalSeconds <= 0) {
             throw new IllegalArgumentException("Interval must be positive");
         }
-        this.colorA = colorA;
-        this.colorB = colorB;
+        this.colorA = Objects.requireNonNull(colorA, "Color A cannot be null");
+        this.colorB = Objects.requireNonNull(colorB, "Color B cannot be null");
+
+        if (colorA.equals(colorB)) {
+            throw new IllegalArgumentException("Color A and Color B must be different to allow blinking");
+        }
+
         this.intervalSeconds = intervalSeconds;
     }
 
