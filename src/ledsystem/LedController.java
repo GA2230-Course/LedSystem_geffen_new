@@ -20,10 +20,7 @@ public class LedController {
     public void play() {
         for (Animation animation : animations) {
             animation.apply(strip);
-
-            if (!(animation instanceof TimedAnimation)) {
-                strip.apply();
-            }
+            strip.apply();
         }
     }
 }
